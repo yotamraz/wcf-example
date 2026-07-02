@@ -314,6 +314,10 @@ __pycache__/
 venv/
 .pytest_cache/
 
+# System/package cache directories
+Microsoft/
+pip/
+
 # Cake - Uncomment if you are using it
 # tools/**
 # !tools/packages.config

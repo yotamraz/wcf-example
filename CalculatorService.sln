@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfServiceLib", "WcfService
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETCoreConsumer", "NETCoreConsumer\NETCoreConsumer.csproj", "{E56C807E-7768-4778-8DFE-0F9D0FC8E985}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorService.Tests", "CalculatorService.Tests\CalculatorService.Tests.csproj", "{2AB126C6-B75D-4DEF-84CD-D4AFA81E2753}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E56C807E-7768-4778-8DFE-0F9D0FC8E985}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E56C807E-7768-4778-8DFE-0F9D0FC8E985}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E56C807E-7768-4778-8DFE-0F9D0FC8E985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AB126C6-B75D-4DEF-84CD-D4AFA81E2753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AB126C6-B75D-4DEF-84CD-D4AFA81E2753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AB126C6-B75D-4DEF-84CD-D4AFA81E2753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AB126C6-B75D-4DEF-84CD-D4AFA81E2753}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

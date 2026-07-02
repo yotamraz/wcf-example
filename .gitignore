@@ -305,6 +305,12 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+*.pyo
+
+# Python virtual environments and pytest
+.venv/
+venv/
+.pytest_cache/
 
 # Cake - Uncomment if you are using it
 # tools/**

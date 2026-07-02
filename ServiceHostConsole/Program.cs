@@ -1,37 +1,31 @@
-﻿using System;
-using System.ServiceModel;
-using System.ServiceModel.Description;
+using CoreWCF;
+using CoreWCF.Configuration;
+using CoreWCF.Description;
 using WcfServiceLib;
 
-namespace ServiceHostConsole
+var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseUrls("http://localhost:8080");
+
+builder.Services.AddServiceModelServices();
+builder.Services.AddServiceModelMetadata();
+builder.Services.AddSingleton<CalculatorService>();
+
+var app = builder.Build();
+
+app.UseServiceModel(serviceBuilder =>
 {
-    class Program
+    serviceBuilder.AddService<CalculatorService>(serviceOptions =>
     {
-        static void Main(string[] args)
-        {
-            // netsh http add urlacl url=http://+:8080/CalculatorService/ user=<DOMAIN/User>
-            
-            Uri baseAddress = new Uri("http://localhost:8080/CalculatorService");
+        serviceOptions.DebugBehavior.IncludeExceptionDetailInFaults = true;
+    });
+    serviceBuilder.AddServiceEndpoint<CalculatorService, ICalculatorService>(
+        new BasicHttpBinding(), "/CalculatorService");
 
-            // Create the ServiceHost.
-            using (ServiceHost host = new ServiceHost(typeof(CalculatorService), baseAddress))
-            {
-                ServiceMetadataBehavior smb = new ServiceMetadataBehavior
-                {
-                    HttpGetEnabled = true,
-                };
-                smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-                host.Description.Behaviors.Add(smb);
+    var serviceMetadataBehavior = app.Services.GetRequiredService<ServiceMetadataBehavior>();
+    serviceMetadataBehavior.HttpGetEnabled = true;
+});
 
-                host.Open();
+Console.WriteLine("The service is ready at http://localhost:8080/CalculatorService");
+app.Run();
 
-                Console.WriteLine("The service is ready at {0}", baseAddress);
-                Console.WriteLine("Press <Enter> to stop the service.");
-                Console.ReadLine();
-
-                // Close the ServiceHost.
-                host.Close();
-            }
-        }
-    }
-}
+public partial class Program { }

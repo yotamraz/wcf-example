@@ -1,4 +1,4 @@
-﻿using System.ServiceModel;
+﻿using CoreWCF;
 
 namespace WcfServiceLib
 {

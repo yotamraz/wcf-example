@@ -1,4 +1,3 @@
-using System.Net;
 using System.ServiceModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;

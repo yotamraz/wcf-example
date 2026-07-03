@@ -14,10 +14,7 @@ var app = builder.Build();
 
 app.UseServiceModel(serviceBuilder =>
 {
-    serviceBuilder.AddService<CalculatorService>(serviceOptions =>
-    {
-        serviceOptions.DebugBehavior.IncludeExceptionDetailInFaults = true;
-    });
+    serviceBuilder.AddService<CalculatorService>();
     serviceBuilder.AddServiceEndpoint<CalculatorService, ICalculatorService>(
         new BasicHttpBinding(), "/CalculatorService");
 

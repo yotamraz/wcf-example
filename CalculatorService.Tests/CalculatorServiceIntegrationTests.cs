@@ -61,19 +61,45 @@ public class CalculatorServiceIntegrationTests : IClassFixture<CalculatorService
         return new CalculatorServiceClient(binding, endpointAddress);
     }
 
+    private static async Task CloseClientAsync(CalculatorServiceClient client)
+    {
+        try
+        {
+            await client.CloseAsync();
+        }
+        catch
+        {
+            client.Abort();
+        }
+    }
+
     [Fact]
     public async Task Add_ReturnsCorrectSum()
     {
         var client = CreateClient();
-        var result = await client.AddAsync(11.8, 14.7);
-        Assert.Equal(26.5, result, precision: 10);
+        try
+        {
+            var result = await client.AddAsync(11.8, 14.7);
+            Assert.Equal(26.5, result, precision: 10);
+        }
+        finally
+        {
+            await CloseClientAsync(client);
+        }
     }
 
     [Fact]
     public async Task Subtract_ReturnsCorrectDifference()
     {
         var client = CreateClient();
-        var result = await client.SubtractAsync(11.8, 14.7);
-        Assert.Equal(-2.9, result, precision: 10);
+        try
+        {
+            var result = await client.SubtractAsync(11.8, 14.7);
+            Assert.Equal(-2.9, result, precision: 10);
+        }
+        finally
+        {
+            await CloseClientAsync(client);
+        }
     }
 }

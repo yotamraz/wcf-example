@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+
+jobs:
+  build-and-test:
+    name: Build & Test (.NET 8)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore CalculatorService.sln
+
+      - name: Build
+        run: dotnet build CalculatorService.sln --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test CalculatorService.sln --no-build --configuration Release --verbosity normal

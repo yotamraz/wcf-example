@@ -10,27 +10,27 @@ from conftest import run_dotnet
 class TestDotnetTest:
     """dotnet test CalculatorService.sln — all xUnit tests pass."""
 
-    def test_all_tests_pass(self):
-        """Running dotnet test should exit with code 0 (all tests pass)."""
-        result = run_dotnet(
+    @pytest.fixture(scope="class")
+    def dotnet_test_result(self):
+        """Run dotnet test once for the whole class and share the result."""
+        return run_dotnet(
             "test", "CalculatorService.sln",
             "--no-build", "--configuration", "Debug",
             "--logger", "console;verbosity=normal",
             timeout=180,
         )
+
+    def test_all_tests_pass(self, dotnet_test_result):
+        """Running dotnet test should exit with code 0 (all tests pass)."""
+        result = dotnet_test_result
         assert result.returncode == 0, (
             f"dotnet test failed (exit {result.returncode}).\n"
             f"STDOUT: {result.stdout}\nSTDERR: {result.stderr}"
         )
 
-    def test_expected_test_count(self):
+    def test_expected_test_count(self, dotnet_test_result):
         """Should report at least 9 tests passing (7 unit + 2 integration)."""
-        result = run_dotnet(
-            "test", "CalculatorService.sln",
-            "--no-build", "--configuration", "Debug",
-            "--logger", "console;verbosity=normal",
-            timeout=180,
-        )
+        result = dotnet_test_result
         output = result.stdout + result.stderr
         # xUnit output contains "X passed" in the summary
         # Accept 9 or more tests passing
@@ -42,14 +42,9 @@ class TestDotnetTest:
             f"Could not find 'passed' in test output:\n{output}"
         )
 
-    def test_unit_test_class_present(self):
+    def test_unit_test_class_present(self, dotnet_test_result):
         """Unit test class CalculatorServiceTests should be mentioned in output."""
-        result = run_dotnet(
-            "test", "CalculatorService.sln",
-            "--no-build", "--configuration", "Debug",
-            "--logger", "console;verbosity=normal",
-            timeout=180,
-        )
+        result = dotnet_test_result
         assert result.returncode == 0, (
             f"Tests failed.\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
         )

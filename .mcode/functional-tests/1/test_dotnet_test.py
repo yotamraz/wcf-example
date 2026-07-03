@@ -3,24 +3,8 @@ Functional tests for `dotnet test CalculatorService.sln`.
 Verifies that all 9 xUnit tests (7 unit + 2 integration) pass.
 Classification: target_only (test project was newly created in this milestone).
 """
-import subprocess
-import os
 import pytest
-
-WORKSPACE_DIR = os.environ["WORKSPACE_DIR"]
-REPO_DIR = os.path.join(WORKSPACE_DIR, "wcf-example")
-
-
-def run_dotnet(*args, cwd=None, timeout=180):
-    """Run a dotnet command and return the CompletedProcess."""
-    result = subprocess.run(
-        ["dotnet"] + list(args),
-        cwd=cwd or REPO_DIR,
-        capture_output=True,
-        text=True,
-        timeout=timeout,
-    )
-    return result
+from conftest import run_dotnet
 
 
 class TestDotnetTest:

@@ -7,7 +7,7 @@ import subprocess
 import os
 import pytest
 
-WORKSPACE_DIR = os.environ.get("WORKSPACE_DIR", "C:\\Users\\yraz\\.local\\share\\modelcode\\workspace\\jobs\\ec8990db-fa74-43eb-8400-c3b2bc946cbb\\workspace")
+WORKSPACE_DIR = os.environ["WORKSPACE_DIR"]
 REPO_DIR = os.path.join(WORKSPACE_DIR, "wcf-example")
 
 
